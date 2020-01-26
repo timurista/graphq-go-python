@@ -23,6 +23,9 @@ const gateway = new ApolloGateway({
     context: (receivedContext) => ({
       ...receivedContext,
     }),
+    playground: {
+      endpoint: '/prod/graphql'
+    }
   });
   
   // With workaround

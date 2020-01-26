@@ -29,7 +29,7 @@ export class FederationGqlStack extends cdk.Stack {
       code: lambda.Code.asset(path.resolve(__dirname, 'apollo-gateway')),  // code loaded from the "lambda" directory
       handler: 'server.handler',             // file is "hello", function is "handler"
       environment: {
-        NODE_GQL_HOST: lambdaAPI.url
+        NODE_GQL_HOST: lambdaAPI.url+'/graphql'
       }
     });
 

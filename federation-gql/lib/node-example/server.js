@@ -31,6 +31,9 @@ const server = new ApolloServer({
   context: (receivedContext) => ({
     ...receivedContext,
   }),
+  playground: {
+    endpoint: '/prod/graphql'
+  }
 });
 
 // server.listen().then(({ url }) => {
