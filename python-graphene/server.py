@@ -38,6 +38,9 @@ class EventRecorderMutation(graphene.Mutation):
         return EventRecorderMutation(ok=ok, message=message)
 
 
+# TODO:
+# https://github.com/hasura/graphql-serverless/blob/master/aws-python/graphene-sqlalchemy/main.py
+
 # Must name this mutation
 class Mutation(graphene.ObjectType):
     test_event_recorder = EventRecorderMutation.Field()
