@@ -8,7 +8,7 @@ export class FederationGqlStack extends cdk.Stack {
     super(scope, id, props);
 
     const nodeGql = new lambda.Function(this, 'NodeGqlHandler', {
-      runtime: lambda.Runtime.NODEJS_12_X,      // execution environment
+      runtime: lambda.Runtime.NODEJS_8_10,      // execution environment
       code: lambda.Code.asset(path.resolve(__dirname, 'node-example')),  // code loaded from the "lambda" directory
       handler: 'server.handler'                // file is "hello", function is "handler"
     });
@@ -25,7 +25,7 @@ export class FederationGqlStack extends cdk.Stack {
     // make lambda 
     // make apollo gateway
     const gatewayLambda = new lambda.Function(this, 'ApolloGatewayHandler', {
-      runtime: lambda.Runtime.NODEJS_12_X,      // execution environment
+      runtime: lambda.Runtime.NODEJS_8_10,      // execution environment
       code: lambda.Code.asset(path.resolve(__dirname, 'apollo-gateway')),  // code loaded from the "lambda" directory
       handler: 'server.handler',             // file is "hello", function is "handler"
       environment: {
@@ -38,6 +38,9 @@ export class FederationGqlStack extends cdk.Stack {
       handler: gatewayLambda,
       proxy: false
     });
+
+    // federatedGatewayApi.add
+    // fix: https://github.com/apollographql/apollo-server/pull/2241/commits/2f95295d6f44fcb335a6e6d69a7ac7c5ebab7380
 
     const gatewayLambdaResource = federatedGatewayApi.root.addResource('graphql');
     gatewayLambdaResource.addMethod('GET')
