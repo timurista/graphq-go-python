@@ -1,0 +1,22 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+
+[packages]
+graphene = ">=2.0"
+fastapi = "*"
+uvicorn = "*"
+graphene-prisma = "*"
+graphene-federation = "*"
+email-validator = "*"
+boto3 = "*"
+requests-aws-sign = "*"
+elasticsearch = "*"
+python-gitlab = "*"
+promise = "*"
+
+[requires]
+python_version = "3.7"
