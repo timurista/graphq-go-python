@@ -8,24 +8,35 @@ export class FederationGqlStack extends cdk.Stack {
     super(scope, id, props);
 
     const nodeGql = new lambda.Function(this, 'NodeGqlHandler', {
-      runtime: lambda.Runtime.NODEJS_8_10,      // execution environment
+      runtime: lambda.Runtime.NODEJS_12_X,
       code: lambda.Code.asset(path.resolve(__dirname, 'node-example')),  // code loaded from the "lambda" directory
-      handler: 'server.handler'                // file is "hello", function is "handler"
+      handler: 'server.handler'               
     });
-    // defines an API Gateway REST API resource backed by our "hello" function.
+
     const lambdaAPI = new apigw.LambdaRestApi(this, 'Endpoint', {
       handler: nodeGql,
       proxy: false
     });
 
-    const nodeGqlResource = lambdaAPI.root.addResource('graphql');
-    nodeGqlResource.addMethod('GET')
-    nodeGqlResource.addMethod('POST')
+    const pythonGQL = new lambda.Function(this, 'PythonGqlHandler', {
+      runtime: lambda.Runtime.NODEJS_12_X,
+      code: lambda.Code.asset(path.resolve(__dirname, 'python-example')),  // code loaded from the "lambda" directory
+      handler: 'server.handler'               
+    });
+
+    const pythonGQLAPI = new apigw.LambdaRestApi(this, 'Endpoint', {
+      handler: nodeGql,
+      proxy: false
+    });
+
+    const pythonGQLResource = pythonGQLAPI.root.addResource('graphql');
+    pythonGQLResource.addMethod('GET')
+    pythonGQLResource.addMethod('POST')
 
     // make lambda 
     // make apollo gateway
     const gatewayLambda = new lambda.Function(this, 'ApolloGatewayHandler', {
-      runtime: lambda.Runtime.NODEJS_8_10,      // execution environment
+      runtime: lambda.Runtime.NODEJS_12_X,      // execution environment
       code: lambda.Code.asset(path.resolve(__dirname, 'apollo-gateway')),  // code loaded from the "lambda" directory
       handler: 'server.handler',             // file is "hello", function is "handler"
       environment: {
