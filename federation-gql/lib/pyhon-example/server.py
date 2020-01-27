@@ -6,20 +6,18 @@ from graphene_prisma.starlette import GraphQLApp
 from graphene_federation import build_schema, key
 from modules.event_recorder.record import record
 import json
-from modules.gitlab.gitlab import Gitlab, Pipeline
+# from modules.gitlab.gitlab import Gitlab, Pipeline
 
-gl = Gitlab()
+# gl = Gitlab()
 
 
 class Query(graphene.ObjectType):
-    gitlab = Gitlab
-    web_pipelines = graphene.List(lambda: Pipeline)
+    # gitlab = Gitlab
+    # web_pipelines = graphene.List(lambda: Pipeline)
+    hello = graphene.String;
 
-    def resolve_web_pipelines(self, info):
-        # https://us-west-2.console.aws.amazon.com/dynamodb/home?region=us-west-2#tables:selected=deployboard-projects-production;tab=items
-        web_team_prod_ids = ["web-product/trust-frog", "web-product/trust-honey-badger"]
-        print(gl.load(web_team_prod_ids))
-        return gl.load(web_team_prod_ids)
+    def resolve_hello(self, info):
+        return "hello from python"
 
 
 class EventRecorderMutation(graphene.Mutation):

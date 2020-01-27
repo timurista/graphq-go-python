@@ -25,7 +25,7 @@ export class FederationGqlStack extends cdk.Stack {
     });
 
     const pythonGQLAPI = new apigw.LambdaRestApi(this, 'Endpoint', {
-      handler: nodeGql,
+      handler: pythonGQL,
       proxy: false
     });
 
