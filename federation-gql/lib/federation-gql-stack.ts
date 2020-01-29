@@ -33,11 +33,17 @@ export class FederationGqlStack extends cdk.Stack {
     })
 
 
-    const lambdaAPI = new apigw.LambdaRestApi(this, 'Endpoint', {
+    const lambdaAPI = new apigw.LambdaRestApi(this, 'NodeEndpoint', {
       handler: nodeGql,
-      proxy: false,
-      defaultIntegration: nodeGqlInt
+      proxy: false
     });
+
+
+    const lambdaAPIResource = lambdaAPI.root.addResource('graphql');
+    lambdaAPIResource.addMethod('GET', nodeGqlInt)
+    lambdaAPIResource.addMethod('POST', nodeGqlInt)
+
+
 
     const pythonGQL = new lambda.Function(this, 'PythonGqlHandler', {
       runtime: lambda.Runtime.NODEJS_12_X,
@@ -51,17 +57,16 @@ export class FederationGqlStack extends cdk.Stack {
       connectionType: apigw.ConnectionType.VPC_LINK
     })
 
-    const pythonGQLAPI = new apigw.LambdaRestApi(this, 'Endpoint', {
+    const pythonGQLAPI = new apigw.LambdaRestApi(this, 'PythonEndpoint', {
       handler: pythonGQL,
-      proxy: false,
-      defaultIntegration: pythonGQLInt
+      proxy: false
     });
 
 
 
     const pythonGQLResource = pythonGQLAPI.root.addResource('graphql');
-    pythonGQLResource.addMethod('GET')
-    pythonGQLResource.addMethod('POST')
+    pythonGQLResource.addMethod('GET', pythonGQLInt)
+    pythonGQLResource.addMethod('POST', pythonGQLInt)
 
 
     // make lambda 
@@ -87,16 +92,15 @@ export class FederationGqlStack extends cdk.Stack {
 
     const federatedGatewayApi = new apigw.LambdaRestApi(this, 'FederatedGateway', {
       handler: gatewayLambda,
-      proxy: false,
-      defaultIntegration: gatewayLambdaInt
+      proxy: false
     });
 
     // federatedGatewayApi.add
     // fix: https://github.com/apollographql/apollo-server/pull/2241/commits/2f95295d6f44fcb335a6e6d69a7ac7c5ebab7380
 
     const gatewayLambdaResource = federatedGatewayApi.root.addResource('graphql');
-    gatewayLambdaResource.addMethod('GET')
-    gatewayLambdaResource.addMethod('POST')
+    gatewayLambdaResource.addMethod('GET', gatewayLambdaInt)
+    gatewayLambdaResource.addMethod('POST', gatewayLambdaInt)
 
 
   }

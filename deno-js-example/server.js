@@ -1,0 +1,9 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const server_ts_1 = require("https://deno.land/std@v0.30.0/http/server.ts");
+const s = server_ts_1.serve({ port: 8000 });
+console.log("http://localhost:8000/");
+for await (const req of s) {
+    req.respond({ body: "Hello World\n" });
+}
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoic2VydmVyLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsic2VydmVyLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7O0FBQUEsNEVBQXFFO0FBQ3JFLE1BQU0sQ0FBQyxHQUFHLGlCQUFLLENBQUMsRUFBRSxJQUFJLEVBQUUsSUFBSSxFQUFFLENBQUMsQ0FBQztBQUNoQyxPQUFPLENBQUMsR0FBRyxDQUFDLHdCQUF3QixDQUFDLENBQUM7QUFDdEMsSUFBSSxLQUFLLEVBQUUsTUFBTSxHQUFHLElBQUksQ0FBQyxFQUFFO0lBQ3pCLEdBQUcsQ0FBQyxPQUFPLENBQUMsRUFBRSxJQUFJLEVBQUUsZUFBZSxFQUFFLENBQUMsQ0FBQztDQUN4QyIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7IHNlcnZlIH0gZnJvbSBcImh0dHBzOi8vZGVuby5sYW5kL3N0ZEB2MC4zMC4wL2h0dHAvc2VydmVyLnRzXCI7XG5jb25zdCBzID0gc2VydmUoeyBwb3J0OiA4MDAwIH0pO1xuY29uc29sZS5sb2coXCJodHRwOi8vbG9jYWxob3N0OjgwMDAvXCIpO1xuZm9yIGF3YWl0IChjb25zdCByZXEgb2Ygcykge1xuICByZXEucmVzcG9uZCh7IGJvZHk6IFwiSGVsbG8gV29ybGRcXG5cIiB9KTtcbn0iXX0=

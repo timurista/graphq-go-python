@@ -7,6 +7,6 @@ const app = new cdk.App();
 new FederationGqlStack(app, 'FederationGqlStack', {
     env: {
         region: 'us-east-1',
-        account: '133400538676'  // linux academy accounts that change frequently
+        account: '786295502633'  // linux academy accounts that change frequently
     } 
 });

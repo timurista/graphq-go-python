@@ -4,6 +4,9 @@ This is a blank project for TypeScript development with CDK.
 
 The `cdk.json` file tells the CDK Toolkit how to execute your app.
 
+<!-- BOOTSTRAP -->
+`cdk bootstrap --profile linux-academy-user aws://ACC/us-east-1`
+
 ## Useful commands
 
  * `npm run build`   compile typescript to js
