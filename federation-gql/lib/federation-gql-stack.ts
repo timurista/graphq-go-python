@@ -24,12 +24,12 @@ export class FederationGqlStack extends cdk.Stack {
     const nodeGql = new lambda.Function(this, 'NodeGqlHandler', {
       runtime: lambda.Runtime.NODEJS_12_X,
       code: lambda.Code.asset(path.resolve(__dirname, 'node-example')),  // code loaded from the "lambda" directory
-      handler: 'server.handler'               
+      handler: 'server.handler',
+      vpc                         
     });
 
     const nodeGqlInt = new apigw.LambdaIntegration(nodeGql, {
       vpcLink: vpcLink,
-      connectionType: apigw.ConnectionType.VPC_LINK
     })
 
 
@@ -48,13 +48,13 @@ export class FederationGqlStack extends cdk.Stack {
     const pythonGQL = new lambda.Function(this, 'PythonGqlHandler', {
       runtime: lambda.Runtime.NODEJS_12_X,
       code: lambda.Code.asset(path.resolve(__dirname, 'python-example')),  // code loaded from the "lambda" directory
-      handler: 'server.handler'               
+      handler: 'server.handler',
+      vpc               
     });
 
     // where we can add the vpc link
     const pythonGQLInt = new apigw.LambdaIntegration(pythonGQL, {
       vpcLink: vpcLink,
-      connectionType: apigw.ConnectionType.VPC_LINK
     })
 
     const pythonGQLAPI = new apigw.LambdaRestApi(this, 'PythonEndpoint', {
@@ -81,12 +81,12 @@ export class FederationGqlStack extends cdk.Stack {
       handler: 'server.handler',             // file is "hello", function is "handler"
       environment: {
         NODE_GQL_HOST: lambdaAPI.url+'/graphql'
-      }
+      },
+      vpc
     });
 
     const gatewayLambdaInt = new apigw.LambdaIntegration(gatewayLambda, {
       vpcLink: vpcLink,
-      connectionType: apigw.ConnectionType.VPC_LINK
     })
 
 
